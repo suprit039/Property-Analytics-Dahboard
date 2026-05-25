@@ -17,7 +17,7 @@ export default function ChatMessage({ role, text }) {
           px: 2,
           py: 1.25,
           borderRadius: 2,
-          bgcolor: isUser ? "primary.main" : "grey.100",
+          bgcolor: isUser ? "primary.main" : (t) => t.palette.mode === "dark" ? "grey.800" : "grey.100",
           color: isUser ? "primary.contrastText" : "text.primary",
         }}
       >

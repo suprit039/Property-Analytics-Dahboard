@@ -31,7 +31,7 @@ export default function ChatInput() {
         color="primary"
         onClick={handleSend}
         disabled={loading || !text.trim()}
-        sx={{ bgcolor: "primary.main", color: "white", "&:hover": { bgcolor: "primary.dark" } }}
+        sx={{ bgcolor: "primary.main", color: "primary.contrastText", "&:hover": { bgcolor: "primary.dark" } }}
       >
         <SendIcon fontSize="small" />
       </IconButton>
