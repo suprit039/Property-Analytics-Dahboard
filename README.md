@@ -1,62 +1,56 @@
 # UPYOG Property Tax Analytics Dashboard
 
-Multi-tenant property tax analytics dashboard for the UPYOG platform (NUDM Intern Assessment 2026). Built with React, Redux Toolkit, Material UI, Recharts, and Google Gemini for natural-language insights over property tax data.
+Multi-tenant property tax analytics dashboard for the UPYOG platform — NUDM Intern Assessment 2026. Built with React, Redux Toolkit, Material UI, Recharts, and Google Gemini.
 
-## Project Overview
+## Features
 
-This dashboard visualizes 1,000 synthetic property tax records across 10 Indian cities. It provides:
-
-- **KPI cards** — total registered, approved, rejected, and collection (filtered by tenant)
-- **City comparison chart** — bar chart of tax collection per city (always shows all 10 cities)
-- **Status distribution** — donut chart of approval status
-- **AI Tax Assistant** — Gemini-powered chat grounded in live dataset summaries
+- **KPI Dashboard** — 4 live-updating KPI cards (total registered, approved, rejected, collection) with count-up animation and sparkline trends
+- **City Filter** — dropdown to filter KPIs and donut chart by any of 10 cities or view all
+- **City Comparison Chart** — bar chart comparing tax collection across all 10 cities side by side
+- **Status Distribution** — donut chart showing approved / rejected / pending breakdown
+- **AI Tax Assistant** — Gemini-powered chat drawer for natural-language queries about the data
+- **Dark / Light Mode** — theme toggle in the top bar
+- **Responsive Layout** — works on desktop and mobile
 
 ## Prerequisites
 
-- **Node.js** 18 or higher (20+ recommended)
+- **Node.js** 18+ (20+ recommended)
 - **npm** 9+
-- **Google Gemini API key** for the AI chat feature ([aistudio.google.com/apikey](https://aistudio.google.com/apikey))
+- **Google Gemini API key** — [aistudio.google.com/apikey](https://aistudio.google.com/apikey)
 
-## Installation
+## Setup
 
 ```bash
+# 1. Install dependencies
 cd upyog-dashboard
 npm install
-```
 
-## Environment Setup
+# 2. Configure environment
+cp .env.example .env
+# Edit .env and add your Gemini key:
+#   VITE_GEMINI_API_KEY=AIza...
+#   VITE_GEMINI_MODEL=gemini-1.5-flash
 
-1. Copy the example env file:
-
-   ```bash
-   cp .env.example .env
-   ```
-
-2. Add your Gemini API key:
-
-   ```bash
-   VITE_GEMINI_API_KEY=AIza...
-   VITE_GEMINI_MODEL=gemini-1.5-flash
-   ```
-
-   > Use `gemini-1.5-flash` on free tier — `gemini-2.0-flash` often has zero quota.
-
-> Never commit `.env` — it is listed in `.gitignore`.
-
-## Run Locally
-
-```bash
+# 3. Start dev server
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+Open [http://localhost:5173](http://localhost:5173).
 
-## Build
+## Build for Production
 
 ```bash
 npm run build
 npm run preview
 ```
+
+## Sample Chat Questions
+
+1. Which city has the highest tax collection?
+2. What is the approval rate in Mumbai?
+3. How many properties are pending in Delhi?
+4. How many properties are rejected in Mumbai?
+5. Compare total registrations between Pune and Jaipur
 
 ## Folder Structure
 
@@ -70,46 +64,59 @@ src/
 ├── components/
 │   ├── common/       # KpiCard, PageHeader, LoadingSpinner
 │   ├── dashboard/    # Charts & KPI grid
-│   ├── chat/         # Chat UI
-│   └── layout/       # Sidebar & TopBar
-├── hooks/            # useDataSummary for AI context
+│   ├── chat/         # Chat panel, drawer, input
+│   └── layout/       # TopBar (branding + actions)
+├── hooks/            # useCountUp, useDataSummary, useThemeMode
 ├── pages/            # DashboardPage
-├── theme/            # MUI theme
+├── theme/            # MUI light & dark theme definitions
 └── utils/            # Formatters & constants
 public/
-└── properties.json   # 1000 property records
+└── properties.json   # 1000 synthetic property records
 ```
-
-## Sample Chat Questions
-
-Try asking the AI assistant:
-
-1. Which city has the highest tax collection?
-2. What is the approval rate in Mumbai?
-3. How many properties are pending in Delhi?
-4. What is the total collection across all cities?
-5. Compare rejected properties in Chennai vs Bengaluru
 
 ## Assumptions & Known Limitations
 
-- **Single page** — sidebar nav items are visual only (no routing); Overview is the active view.
-- **Static dataset** — `properties.json` is loaded once at startup; no backend API.
-- **Browser API calls** — Gemini is called directly from the browser (suitable for demos; use a backend proxy in production to hide the API key).
-- **PDF Report button** — UI placeholder only; not wired to export.
-- **Search bar** — decorative; not connected to filtering.
-- **collection_inr** — only non-zero for `Approved` records, per assessment spec.
-- **Chart vs filter** — city comparison chart always uses all records; KPIs and donut chart respect the tenant dropdown.
+- **Single page** — no routing; the dashboard is the only view
+- **Static dataset** — `properties.json` is loaded once at startup; no backend API
+- **Browser API calls** — Gemini is called directly from the browser (use a backend proxy in production to hide the API key)
+- **collection_inr** — only non-zero for `Approved` records, per assessment spec
+- **City chart vs filter** — the comparison bar chart always shows all 10 cities; KPIs and donut chart respect the tenant dropdown
 
 ## Tech Stack
 
-| Layer    | Technology        |
-| -------- | ----------------- |
-| Framework | React 18+ (Vite) |
-| State    | Redux Toolkit     |
-| UI       | Material UI v5+   |
-| Charts   | Recharts          |
-| AI       | Google Gemini API |
-| Linting  | ESLint + Prettier |
+| Layer      | Technology          |
+|------------|---------------------|
+| Framework  | React 18 (Vite)    |
+| State      | Redux Toolkit       |
+| UI         | Material UI v5     |
+| Charts     | Recharts            |
+| AI         | Google Gemini API  |
+| Animations | CSS keyframes + Recharts |
+| Linting    | ESLint + Prettier   |
+
+## Color Palette
+
+Inspired by [Color Hunt #eeeeee-6fcf97-2fa084-1f6f5f](https://colorhunt.co/palette/eeeeee6fcf972fa0841f6f5f)
+
+| Role        | Hex       |
+|-------------|-----------|
+| Background  | `#EEEEEE` |
+| Mint Accent | `#6FCF97` |
+| Teal Accent | `#2FA084` |
+| Dark Teal   | `#1F6F5F` |
+| Text        | `#161516` |
+
+## Assessment Scoring
+
+| Component                     | Max Points |
+|-------------------------------|------------|
+| KPI dashboard (4 cards)       | 30         |
+| Tenant filter dropdown        | 15         |
+| Comparison chart              | 10         |
+| AI chat assistant             | 25         |
+| Code quality & structure      | 10         |
+| README & setup instructions   | 10         |
+| **Total**                     | **100**    |
 
 ## License
 
