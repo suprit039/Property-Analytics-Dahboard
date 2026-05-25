@@ -106,17 +106,9 @@ Inspired by [Color Hunt #eeeeee-6fcf97-2fa084-1f6f5f](https://colorhunt.co/palet
 | Dark Teal   | `#1F6F5F` |
 | Text        | `#161516` |
 
-## Assessment Scoring
 
-| Component                     | Max Points |
-|-------------------------------|------------|
-| KPI dashboard (4 cards)       | 30         |
-| Tenant filter dropdown        | 15         |
-| Comparison chart              | 10         |
-| AI chat assistant             | 25         |
-| Code quality & structure      | 10         |
-| README & setup instructions   | 10         |
-| **Total**                     | **100**    |
+
+
 
 ## License
 
